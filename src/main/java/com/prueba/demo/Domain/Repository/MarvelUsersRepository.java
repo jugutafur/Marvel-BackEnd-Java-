@@ -7,6 +7,6 @@ import java.util.Optional;
 public interface MarvelUsersRepository {
     List<MarvelUser> getAll();
     Optional<MarvelUser> getRegister(int id);
-    String getOnlyOney(int id);
     MarvelUser saveRegister(MarvelUser marvelUser);
+    void delete(int marvelId);
 }

@@ -20,7 +20,6 @@ public class MarvelUsuariosRepository implements MarvelUsersRepository {
     @Autowired
     private MarvelUsersMapper marvelUsersMapper;
 
-
     @Override
     public List<MarvelUser> getAll() {
         List<MarvelUsuarios> MarvelUsuarioss= (List<MarvelUsuarios>) marvelCrudRepository.findAll();
@@ -33,12 +32,13 @@ public class MarvelUsuariosRepository implements MarvelUsersRepository {
     }
 
     @Override
-    public String getOnlyOney(int id) { return "mensaje de prueba Marvel Usuarios " + id; }
-
-
-    @Override
     public MarvelUser saveRegister(MarvelUser marvelUser) {
         MarvelUsuarios marvelUsuarios = marvelUsersMapper.toMarvelUsuarios(marvelUser);
         return marvelUsersMapper.toMarvelUser(marvelCrudRepository.save(marvelUsuarios));
+    }
+
+    @Override
+    public void delete(int marvelId) {
+        marvelCrudRepository.deleteById(marvelId);
     }
 }

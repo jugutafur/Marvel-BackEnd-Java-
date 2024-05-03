@@ -13,9 +13,14 @@ public class MarvelUsersService {
 
     @Autowired
     private MarvelUsersRepository marvelUsersRepository;
-
     public List<MarvelUser> getAll(){return marvelUsersRepository.getAll(); }
     public Optional<MarvelUser> getRegister(int id){ return  marvelUsersRepository.getRegister(id); }
-    public String getOnlyOney(int id){return marvelUsersRepository.getOnlyOney(id); }
-    public MarvelUser saveRegister(MarvelUser marvelUser){return marvelUsersRepository.saveRegister(marvelUser); }
+    public MarvelUser saveRegister(MarvelUser marvelUser){
+        return marvelUsersRepository.saveRegister(marvelUser); }
+    public boolean delete(int userId){
+        return getRegister(userId).map(marvelUser -> {
+            marvelUsersRepository.delete(userId);
+            return true;
+        }).orElse(false);
+    }
 }
