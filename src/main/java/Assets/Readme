@@ -1,5 +1,5 @@
 (1)
-in the file Web > config > SwaggerConfig, contain the Bean that work Swagger
+in the file Cconfig > SwaggerConfig, contain the Bean that work Swagger
 you can use the next options by see documentation controllers
 
 //Url = {host}:{puerto}/{contexto}/swagger-ui/index.html
@@ -8,10 +8,9 @@ you can use the next options by see documentation controllers
 
 *******************************************************************************************
 (2)
-to to run jar you need, create the jar
-Gradle > build > bootJar
+by to run jar first you need, create the jar in Gradle > build > bootJar
 
-create .jar in the file build > libs > store-2.0.jar
+create the file.jar in the carpet build > libs > store-2.0.jar
 
 java -jar nameProject-version.jar
 java -jar store-2.0.jar

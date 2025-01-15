@@ -1,38 +1,113 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.5'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'java-library'
+	id 'org.springframework.boot' version '3.3.0'
+	id 'io.spring.dependency-management' version '1.1.5'
 }
 
-group = 'com.prueba'
-version = '1.0'
-sourceCompatibility = '11'
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	/*para trabajar con jpa que es el standar para manejar BD */
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
-	/*para implementar postgres*/
 	runtimeOnly 'org.postgresql:postgresql'
-
-	/*para implementar mapstruct*/
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
 	/*para implementar swagger2*/
-	implementation 'io.springfox:springfox-swagger2:2.9.2'
-	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+	//implementation 'io.springfox:springfox-swagger2:2.9.2'
+	//implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	//Dependencies by test
+	implementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+	implementation 'io.rest-assured:rest-assured:5.4.0'
+	implementation 'org.springframework:spring-test:6.1.8'
+	implementation 'org.springframework.boot:spring-boot-test:3.2.0'
+
 }
 
 test {
 	useJUnitPlatform()
 }
+
+tasks.register("TaskMostrarMensaje"){
+	group("verification")
+	description("Taskpersonal")
+	doFirst {
+		println("Msm Start")
+	}
+	doLast {
+		println("Msm Final")
+	}
+}
+
+task acceptanceTest(type: Test){
+	description = "Task to run test with template"
+	group = "verification"
+
+	//doLast{
+		//-D parametro del Systema
+		//-P parametro del Proyecto
+		//./gradlew acceptancetest -Dparametro1=lunes -Pparametro2=martes
+//		println "El valor de parametro1 = ${project.property("parametro1")}"
+		//println "El valor de parametro2 = ${System.getProperty("parametro2")}"
+	//}
+}
+
+task Uno(type: Test){
+	description = "tarea de prueba Uno"
+	group = "verification"
+
+	ext{
+		nombre = "pepito perez"
+		identificacion = "123456"
+	}
+}
+
+Uno.doLast {
+	String apellido= "torres"
+	println "el usuario "+ nombre +
+			", "+ apellido+"de cali";
+}
+
+task Dos(type: Test){
+	description = "tarea de prueba Dos"
+	group = "verification"
+
+	doLast {
+		println "El usuario = " + Uno.nombre +
+				" identificado con "+Uno.identificacion
+	}
+}
+//lanzar task que dependen de otras
+task compilar(type: Test){
+	doLast{
+		println "esta compilando"
+	}
+}
+
+task desplegar(type: Test){
+	onlyIf {
+		compilar.didWork(true)
+	}
+	doLast {
+		println "esta desplegando"
+	}
+}
+
+task A(type: Test){
+	//println "tarea A"
+}
+
+task B(type: Test){
+	//println "tarea B"
+}
+B.mustRunAfter A

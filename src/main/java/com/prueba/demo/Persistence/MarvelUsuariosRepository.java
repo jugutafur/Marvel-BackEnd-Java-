@@ -22,13 +22,15 @@ public class MarvelUsuariosRepository implements MarvelUsersRepository {
 
     @Override
     public List<MarvelUser> getAll() {
-        List<MarvelUsuarios> MarvelUsuarioss= (List<MarvelUsuarios>) marvelCrudRepository.findAll();
-        return marvelUsersMapper.toMarvelUsers(MarvelUsuarioss);
+        List<MarvelUsuarios> MarvelUsuarios= (List<MarvelUsuarios>) marvelCrudRepository.findAll();
+        return marvelUsersMapper.toMarvelUsers(MarvelUsuarios);
     }
 
     @Override
     public Optional<MarvelUser> getRegister(int id) {
-        return marvelCrudRepository.findById(id).map(MarvelUsuarios -> marvelUsersMapper.toMarvelUser(MarvelUsuarios));
+        return marvelCrudRepository.findById(id).map(
+                MarvelUsuarios -> marvelUsersMapper.toMarvelUser(MarvelUsuarios)
+        );
     }
 
     @Override
