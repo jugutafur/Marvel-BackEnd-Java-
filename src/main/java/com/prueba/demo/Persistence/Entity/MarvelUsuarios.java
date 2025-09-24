@@ -4,7 +4,7 @@ package com.prueba.demo.Persistence.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "marvelusuarios")
+@Table(name = "marvelUsuarios")
 public class MarvelUsuarios {
 
     @Id
